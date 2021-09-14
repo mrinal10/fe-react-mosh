@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 
 class Counter extends React.Component {
     state = {
-        count: 2,
-        imageUrl: 'https://picsum.photos/200',
-        tags: ['tag1', 'tag2', 'tag3']
+        value: this.props.value
      };
 
     styles = {
@@ -20,35 +18,34 @@ class Counter extends React.Component {
                 </ul>);
     }
 
-    handleIncreament = () => {
-        this.setState( { count: this.state.count + 1 });
-        console.log('Increment Clicked', this);
+    handleIncreament = product => {
+        this.setState( { value: this.state.value + 1 });
+        console.log(product);
     }
 
-    render() {         
+    render() {        
         return (
-            <div>               
+            <div>
+                <h4>{this.props.children}</h4>
                 <span style={ this.styles } className= {this.getBadgeClasses()}>
                     {this.formatCoCount()}
                 </span>
-                <button 
-                        onClick={this.handleIncreament} 
-                        className="btn btn-secondary btn-sm">
+                <button onClick={() => this.handleIncreament({ id: 1 })} 
+                    className="btn btn-secondary btn-sm">
                     Increament
                 </button>
-                { this.renderTags() }
             </div>
         );
     }
 
     formatCoCount() {
-        const { count} = this.state;
-        return count === 0 ? 'Zero' : count;
+        const { value } = this.state;
+        return value === 0 ? 'Zero' : value;
     }
 
     getBadgeClasses() {
         let classes = "badge m-2 badge-";
-        classes += (this.state.count === 0) ? "warning" : "primary";
+        classes += (this.state.value === 0) ? "warning" : "primary";
         return classes;
     }
 }
